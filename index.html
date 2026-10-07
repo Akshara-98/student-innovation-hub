@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Innovation Hub | Student Science Platform</title>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-gradient: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);
+            --bg-dark: #0f172a;
+            --bg-card: rgba(255, 255, 255, 0.05);
+            --text-light: #f1f5f9;
+            --text-muted: #94a3b8;
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Glass Navigation */
+        .glass-nav {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-light);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logo span {
+            background: var(--primary-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 400;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .btn {
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: 0.3s;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-family: inherit;
+        }
+
+        .signup-btn {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .signup-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+            border: 1px solid var(--glass-border);
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .content {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            width: 100%;
+        }
+
+        /* Glassmorphism Styles */
+        .glass-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: var(--glass-shadow);
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 2rem 0 6rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            background: var(--primary-gradient);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+        }
+
+        .hero-btns {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        /* Auth Cards */
+        .auth-card {
+            max-width: 460px;
+            margin: 0 auto;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            padding: 0.8rem 1.2rem;
+            border-radius: 12px;
+            color: white;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: 0.3s;
+        }
+
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+        }
+
+        .form-group select option {
+            background: #1e293b;
+            color: white;
+        }
+
+        .submit-btn {
+            margin-top: 1rem;
+            background: var(--primary-gradient);
+            color: white;
+            font-size: 1rem;
+            padding: 0.8rem 1.5rem;
+        }
+
+        /* Dashboard Styles */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            transition: 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .active-card {
+            border-color: var(--primary-color) !important;
+            background: rgba(99, 102, 241, 0.12) !important;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3) !important;
+        }
+
+        .project-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .no-image {
+            width: 100%;
+            height: 200px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+        }
+
+        .project-info h3 {
+            margin-top: 1rem;
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .project-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.5rem;
+            display: -webkit-box;
+            display: box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Company Dashboard Split View */
+        .company-view-container {
+            display: flex;
+            gap: 2rem;
+            min-height: calc(100vh - 250px);
+        }
+
+        .project-list {
+            flex: 2;
+            overflow-y: auto;
+            padding-right: 1rem;
+            max-height: 80vh;
+        }
+
+        .project-detail {
+            flex: 1.2;
+            position: sticky;
+            top: 100px;
+            height: fit-content;
+        }
+
+        .search-container {
+            position: relative;
+            width: 300px;
+        }
+
+        .search-container i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 0.6rem 1rem 0.6rem 2.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: white;
+            font-size: 0.9rem;
+            transition: 0.3s;
+        }
+
+        .search-container input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .student-info-sidebar {
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .student-info-sidebar h4 {
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .sidebar-item {
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .sidebar-label {
+            display: block;
+            font-weight: 600;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-bottom: 0.2rem;
+        }
+
+        /* Tab Styles */
+        .tabs-container {
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 1rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
+            cursor: pointer;
+            transition: 0.3s;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: inherit;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-light);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .tab-btn.active {
+            color: white;
+            background: var(--primary-gradient);
+        }
+
+        .tab-content {
+            animation: fadeIn 0.4s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Flash Messages */
+        .flash-messages {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            z-index: 1001;
+        }
+
+        .flash {
+            background: var(--primary-gradient);
+            color: white;
+            font-weight: 600;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            box-shadow: var(--glass-shadow);
+            margin-bottom: 1rem;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            margin-top: auto;
+            background: rgba(15, 23, 42, 0.5);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .clickable {
+            cursor: pointer;
+        }
+
+        .email-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(99, 102, 241, 0.15);
+            color: #a5b4fc;
+            padding: 0.3rem 0.75rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+        }
+
+        .email-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        .email-link:hover {
+            text-decoration: underline;
+            color: #a855f7;
+        }
+
+        .view-section {
+            display: none;
+        }
+
+        .view-section.active-view {
+            display: block;
+        }
+
+        @media (max-width: 900px) {
+            .company-view-container {
+                flex-direction: column;
+            }
+            .project-detail {
+                position: static;
+            }
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <a class="logo" onclick="navigateTo('home')">Innovation Hub<span>.</span></a>
+            <ul class="nav-links" id="nav-links-container">
+                <!-- Dynamically Rendered by JS based on Auth State -->
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <main class="content">
+        <!-- Toast Notification Message Container -->
+        <div class="flash-messages" id="flash-container"></div>
+
+        <!-- ==================== VIEW 1: HOME ==================== -->
+        <div id="view-home" class="view-section active-view">
+            <section class="hero">
+                <h1>Ignite the Next Big <span>Idea.</span></h1>
+                <p>
+                    Innovation Hub bridges the gap between brilliant student minds and forward-thinking companies. 
+                    Don't let your science fair project gather dust—turn it into a startup, a solution, or a future.
+                </p>
+                <div class="hero-btns" id="hero-btns-container">
+                    <button class="btn signup-btn" onclick="navigateTo('register')">Get Started Now</button>
+                    <button class="btn logout-btn" onclick="navigateTo('login')">Explore Projects</button>
+                </div>
+            </section>
+
+            <section class="features project-grid">
+                <div class="glass-card feature-card">
+                    <i class="fas fa-rocket" style="font-size: 2.2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <h3 style="margin-bottom: 0.8rem;">For Students</h3>
+                    <p>Upload your models, showcase your PMF ideas, provide your email & contact info, and get direct exposure to industrial leaders and investors.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <i class="fas fa-building" style="font-size: 2.2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <h3 style="margin-bottom: 0.8rem;">For Companies</h3>
+                    <p>Access a curated pool of innovative science projects. Review student work and instantly reach out to them via direct email or phone call.</p>
+                </div>
+                <div class="glass-card feature-card">
+                    <i class="fas fa-shield-alt" style="font-size: 2.2rem; color: var(--primary-color); margin-bottom: 1rem;"></i>
+                    <h3 style="margin-bottom: 0.8rem;">Secured Platform</h3>
+                    <p>We handle your data with high security to avoid replication and protect intellectual property.</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- ==================== VIEW 2: LOGIN ==================== -->
+        <div id="view-login" class="view-section">
+            <div class="auth-card glass-card">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Welcome Back<span>.</span></h2>
+                <form class="auth-form" onsubmit="handleLogin(event)">
+                    <div class="form-group">
+                        <label for="login-username"><i class="fas fa-user"></i> Username or Email</label>
+                        <input type="text" id="login-username" required placeholder="Enter your username or email">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password"><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="login-password" required placeholder="Enter your password">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-role"><i class="fas fa-user-tag"></i> Logging in as:</label>
+                        <select id="login-role">
+                            <option value="student">Student</option>
+                            <option value="company">Company</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn signup-btn submit-btn">Login to Innovation Hub</button>
+                    <p style="text-align: center; margin-top: 1.5rem; color: var(--text-muted);">
+                        New here? <a onclick="navigateTo('register')" style="color: var(--primary-color); font-weight: 600; cursor: pointer;">Create an account</a>
+                    </p>
+                    <div style="margin-top: 1rem; padding: 0.8rem; background: rgba(255,255,255,0.03); border-radius: 8px; font-size: 0.8rem; color: var(--text-muted); text-align: center;">
+                        Demo Student: <strong style="color: var(--text-light);">jdoe</strong> / <strong style="color: var(--text-light);">student1</strong><br>
+                        Demo Company: <strong style="color: var(--text-light);">innovators_inc</strong> / <strong style="color: var(--text-light);">company1</strong>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- ==================== VIEW 3: REGISTER ==================== -->
+        <div id="view-register" class="view-section">
+            <div class="auth-card glass-card">
+                <h2 style="text-align: center; margin-bottom: 2rem;">Join Innovation Hub<span>.</span></h2>
+                <form class="auth-form" onsubmit="handleRegister(event)">
+                    <div class="form-group">
+                        <label for="reg-username"><i class="fas fa-user"></i> Username</label>
+                        <input type="text" id="reg-username" required placeholder="Enter a unique username">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-email"><i class="fas fa-envelope"></i> Email Address</label>
+                        <input type="email" id="reg-email" required placeholder="Enter your email (e.g. name@college.edu)">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-password"><i class="fas fa-lock"></i> Password</label>
+                        <input type="password" id="reg-password" required placeholder="Create a strong password">
+                    </div>
+                    <div class="form-group">
+                        <label for="reg-role"><i class="fas fa-user-tag"></i> Register as:</label>
+                        <select id="reg-role" onchange="toggleCollegeField()">
+                            <option value="student">Student</option>
+                            <option value="company">Company</option>
+                        </select>
+                    </div>
+                    <div class="form-group" id="college-group">
+                        <label for="reg-college"><i class="fas fa-university"></i> Institution / College Name</label>
+                        <input type="text" id="reg-college" placeholder="e.g. MIT, Stanford, Tech Institute">
+                    </div>
+                    <button type="submit" class="btn signup-btn submit-btn">Create Account</button>
+                    <p style="text-align: center; margin-top: 1.5rem; color: var(--text-muted);">
+                        Already have an account? <a onclick="navigateTo('login')" style="color: var(--primary-color); font-weight: 600; cursor: pointer;">Log in</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <!-- ==================== VIEW 4: STUDENT DASHBOARD ==================== -->
+        <div id="view-student" class="view-section">
+            <div class="dashboard-header">
+                <div>
+                    <h2>Student Dashboard</h2>
+                    <p style="color: var(--text-muted); margin-top: 0.3rem;">
+                        Welcome, <strong style="color: var(--text-light);" id="student-welcome-name">Student</strong>
+                        <span class="email-badge" id="student-welcome-email" style="margin-left: 0.5rem;"><i class="fas fa-envelope"></i> email@college.edu</span>
+                    </p>
+                </div>
+                <span class="email-badge" id="student-welcome-college"><i class="fas fa-university"></i> Institution</span>
+            </div>
+
+            <div class="tabs-container" style="margin-bottom: 2rem;">
+                <button class="tab-btn active" id="tab-btn-my" onclick="switchStudentTab('my-dashboard')">
+                    <i class="fas fa-folder-open"></i> My Dashboard
+                </button>
+                <button class="tab-btn" id="tab-btn-global" onclick="switchStudentTab('global-innovations')">
+                    <i class="fas fa-globe"></i> Explore Global Innovations
+                </button>
+            </div>
+
+            <!-- Student Tab 1: Upload & My Projects -->
+            <div id="student-tab-my" class="tab-content" style="display: block;">
+                <div class="student-dashboard-layout">
+                    <div class="upload-section glass-card" style="margin-bottom: 3rem;">
+                        <h3><i class="fas fa-cloud-upload-alt" style="color: var(--primary-color);"></i> Upload New Project</h3>
+                        <form onsubmit="handleUploadProject(event)" class="auth-form" style="margin-top: 1.5rem;">
+                            <div class="form-group">
+                                <label for="proj-title">Project Title</label>
+                                <input type="text" id="proj-title" required placeholder="Name of your innovation">
+                            </div>
+                            <div class="form-group">
+                                <label for="proj-desc">PMF & Description</label>
+                                <textarea id="proj-desc" rows="4" required placeholder="Describe your student project, problem statement, and product-market fit..."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="proj-phone">Contact Phone Number</label>
+                                <input type="text" id="proj-phone" required placeholder="Contact number for companies">
+                            </div>
+                            <div class="form-group">
+                                <label for="proj-url">Project Link (Optional)</label>
+                                <input type="url" id="proj-url" placeholder="https://github.com/your-project or YouTube demo">
+                            </div>
+                            <div class="form-group">
+                                <label for="proj-img">Project Image / Diagram (Optional)</label>
+                                <input type="file" id="proj-img" accept="image/*">
+                            </div>
+                            <button type="submit" class="btn signup-btn submit-btn">Publish Project</button>
+                        </form>
+                    </div>
+
+                    <div class="listing-section">
+                        <h3 style="margin-bottom: 1.5rem;"><i class="fas fa-layer-group" style="color: var(--primary-color);"></i> My Projects</h3>
+                        <div class="project-grid" id="my-projects-container">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Student Tab 2: Global Student Innovations -->
+            <div id="student-tab-global" class="tab-content" style="display: none;">
+                <div class="listing-section">
+                    <h3 style="margin-bottom: 2rem;"><i class="fas fa-globe" style="color: var(--primary-color);"></i> Global Student Innovations</h3>
+                    <div class="project-grid" id="global-projects-container">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== VIEW 5: COMPANY DASHBOARD ==================== -->
+        <div id="view-company" class="view-section">
+            <div class="dashboard-header">
+                <div>
+                    <h2>Company Dashboard</h2>
+                    <p style="color: var(--text-muted);">Logged in as: <strong style="color: var(--text-light);" id="company-welcome-name">Company Partner</strong></p>
+                </div>
+                <span class="email-badge"><i class="fas fa-building"></i> Company Portal</span>
+            </div>
+
+            <div class="company-view-container">
+                <!-- Left Pane: Project Search & Feed -->
+                <div class="project-list glass-card">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 1rem;">
+                        <h3><i class="fas fa-lightbulb" style="color: var(--primary-color);"></i> Innovation Feed</h3>
+                        <div class="search-container">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="company-search-input" oninput="handleCompanySearch(event)" placeholder="Search projects, students, colleges...">
+                        </div>
+                    </div>
+
+                    <div id="company-feed-container" class="project-grid" style="grid-template-columns: 1fr;">
+                        <!-- Injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Right Pane: Sticky Detail & Contact View -->
+                <div class="project-detail glass-card">
+                    <h3>Project Details & Contact</h3>
+                    
+                    <div id="company-detail-placeholder" style="text-align: center; margin-top: 4rem; color: var(--text-muted); padding: 2rem;">
+                        <i class="fas fa-hand-pointer" style="font-size: 3rem; margin-bottom: 1rem; color: var(--primary-color); opacity: 0.8;"></i>
+                        <p style="font-size: 1.05rem;">Select any student project from the feed to view its full innovation summary, creator details, and directly contact the student via email or call.</p>
+                    </div>
+
+                    <div id="company-detail-content" style="display: none;">
+                        <img id="detail-img" src="" class="project-img" style="height: 200px; margin-bottom: 1.2rem; display: none;" alt="Project Image">
+                        <h2 id="detail-title" style="margin-bottom: 0.8rem; color: var(--primary-color);"></h2>
+                        <p id="detail-desc" style="color: var(--text-muted); margin-bottom: 1.2rem; font-size: 0.95rem; line-height: 1.5;"></p>
+                        
+                        <div id="detail-link-container" style="margin-bottom: 1.5rem; display: none;">
+                            <span class="sidebar-label" style="font-size: 0.85rem; margin-bottom: 0.3rem;">Project Repository / Demo</span>
+                            <a id="detail-project-url" href="#" target="_blank" style="color: var(--primary-color); text-decoration: none; font-weight: 600; font-size: 0.9rem;">
+                                Visit Project Link <i class="fas fa-external-link-alt" style="font-size: 0.8rem; margin-left: 0.3rem;"></i>
+                            </a>
+                        </div>
+
+                        <!-- Creator Information Card with Student Email -->
+                        <div class="student-info-sidebar">
+                            <h4><i class="fas fa-id-card"></i> Student Creator Details</h4>
+                            <div class="sidebar-item">
+                                <span class="sidebar-label">Student Name</span>
+                                <span id="detail-student-name" style="font-weight: 600; color: var(--text-light);"></span>
+                            </div>
+                            <div class="sidebar-item">
+                                <span class="sidebar-label">Student Email</span>
+                                <span id="detail-student-email" style="font-weight: 600; color: #38bdf8;"></span>
+                            </div>
+                            <div class="sidebar-item">
+                                <span class="sidebar-label">Institution / College</span>
+                                <span id="detail-student-college" style="color: var(--text-light);"></span>
+                            </div>
+                            <div class="sidebar-item">
+                                <span class="sidebar-label">Phone / Contact</span>
+                                <span id="detail-student-phone" style="font-weight: 600; color: var(--primary-color);"></span>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons for Company Contact -->
+                        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                            <a id="email-btn" href="#" class="btn signup-btn" style="flex: 1; text-align: center; text-decoration: none;">
+                                <i class="fas fa-envelope"></i> Send Email
+                            </a>
+                            <a id="connect-btn" href="#" class="btn logout-btn" style="flex: 1; text-align: center; text-decoration: none;">
+                                <i class="fas fa-phone-alt"></i> Call Student
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div>
+            <p>&copy; 2026 Innovation Hub. Empowering the Next Generation of Scientists.</p>
+        </div>
+    </footer>
+
+    <!-- All JavaScript Logic -->
+    <script>
+        // State Management
+        const STORAGE_KEY = 'INNOVATION_HUB_DATA_V1';
+
+        const initialData = {
+            currentUser: null,
+            users: [
+                {
+                    username: 'jdoe',
+                    email: 'jdoe@techinstitute.edu',
+                    password: 'student1',
+                    role: 'student',
+                    college: 'Tech Institute'
+                },
+                {
+                    username: 'innovators_inc',
+                    email: 'contact@innovators.com',
+                    password: 'company1',
+                    role: 'company',
+                    college: ''
+                }
+            ],
+            projects: [
+                {
+                    id: 1,
+                    title: 'Smart Traffic System',
+                    description: 'An AI-powered traffic management system using computer vision to optimize signal timings in real-time and reduce urban congestion by 35%.',
+                    phone: '+1 (555) 234-5678',
+                    studentName: 'jdoe',
+                    email: 'jdoe@techinstitute.edu',
+                    college: 'Tech Institute',
+                    project_url: 'https://github.com/jdoe/smart-traffic',
+                    image: 'https://images.unsplash.com/photo-1508873696983-2df5293cb32f?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    id: 2,
+                    title: 'Solar Water Purifier',
+                    description: 'Low-cost, portable water purification unit powered entirely by solar energy, designed for remote and rural communities.',
+                    phone: '+1 (555) 876-5432',
+                    studentName: 'sarah_innovates',
+                    email: 'sarah.lee@stanford.edu',
+                    college: 'Stanford University',
+                    project_url: 'https://github.com/sarah/solar-purifier',
+                    image: 'https://images.unsplash.com/photo-1509391365360-2e959784a276?auto=format&fit=crop&w=800&q=80'
+                },
+                {
+                    id: 3,
+                    title: 'Bio-Degradable Packaging Material',
+                    description: 'Novel mycelium-based sustainable packaging alternative that decomposes within 30 days without harmful chemical residues.',
+                    phone: '+1 (555) 432-1098',
+                    studentName: 'alex_green',
+                    email: 'alex.green@mit.edu',
+                    college: 'MIT',
+                    project_url: 'https://github.com/alex/myco-pack',
+                    image: 'https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=800&q=80'
+                }
+            ]
+        };
+
+        function getAppState() {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            if (!raw) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(initialData));
+                return initialData;
+            }
+            try {
+                return JSON.parse(raw);
+            } catch (e) {
+                return initialData;
+            }
+        }
+
+        function saveAppState(state) {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        let currentActiveView = 'home';
+        let selectedProjectId = null;
+
+        // View Navigation
+        function navigateTo(viewName) {
+            currentActiveView = viewName;
+            document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active-view'));
+            
+            const targetView = document.getElementById('view-' + viewName);
+            if (targetView) {
+                targetView.classList.add('active-view');
+            }
+
+            renderNavbar();
+
+            if (viewName === 'student') {
+                renderStudentDashboard();
+            } else if (viewName === 'company') {
+                renderCompanyDashboard();
+            } else if (viewName === 'home') {
+                renderHeroButtons();
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Render Navigation Links
+        function renderNavbar() {
+            const state = getAppState();
+            const container = document.getElementById('nav-links-container');
+            if (!container) return;
+
+            if (state.currentUser) {
+                if (state.currentUser.role === 'student') {
+                    container.innerHTML = `
+                        <li><a onclick="navigateTo('student')">My Dashboard</a></li>
+                        <li><button class="btn logout-btn" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout (${escapeHtml(state.currentUser.username)})</button></li>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <li><a onclick="navigateTo('company')">Company Portal</a></li>
+                        <li><button class="btn logout-btn" onclick="handleLogout()"><i class="fas fa-sign-out-alt"></i> Logout (${escapeHtml(state.currentUser.username)})</button></li>
+                    `;
+                }
+            } else {
+                container.innerHTML = `
+                    <li><a onclick="navigateTo('home')">Home</a></li>
+                    <li><a onclick="navigateTo('login')">Login</a></li>
+                    <li><button class="btn signup-btn" onclick="navigateTo('register')">Get Started</button></li>
+                `;
+            }
+        }
+
+        function renderHeroButtons() {
+            const state = getAppState();
+            const container = document.getElementById('hero-btns-container');
+            if (!container) return;
+
+            if (state.currentUser) {
+                if (state.currentUser.role === 'student') {
+                    container.innerHTML = `
+                        <button class="btn signup-btn" onclick="navigateTo('student')">Upload Your Project</button>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <button class="btn signup-btn" onclick="navigateTo('company')">Discover Innovators</button>
+                    `;
+                }
+            } else {
+                container.innerHTML = `
+                    <button class="btn signup-btn" onclick="navigateTo('register')">Get Started Now</button>
+                    <button class="btn logout-btn" onclick="navigateTo('login')">Explore Projects</button>
+                `;
+            }
+        }
+
+        // Show Toast Notification
+        function showFlash(message) {
+            const container = document.getElementById('flash-container');
+            if (!container) return;
+            const flashDiv = document.createElement('div');
+            flashDiv.className = 'flash';
+            flashDiv.innerText = message;
+            container.appendChild(flashDiv);
+
+            setTimeout(() => {
+                flashDiv.remove();
+            }, 4000);
+        }
+
+        // Authentication Handlers
+        function handleLogin(event) {
+            event.preventDefault();
+            const identifier = document.getElementById('login-username').value.trim();
+            const password = document.getElementById('login-password').value.trim();
+            const role = document.getElementById('login-role').value;
+
+            const state = getAppState();
+            const user = state.users.find(u => 
+                (u.username.toLowerCase() === identifier.toLowerCase() || u.email.toLowerCase() === identifier.toLowerCase()) &&
+                u.password === password &&
+                u.role === role
+            );
+
+            if (user) {
+                state.currentUser = user;
+                saveAppState(state);
+                showFlash('Welcome back, ' + user.username + '!');
+                if (user.role === 'student') {
+                    navigateTo('student');
+                } else {
+                    navigateTo('company');
+                }
+            } else {
+                showFlash('Login failed. Please check your credentials and role.');
+            }
+        }
+
+        function handleRegister(event) {
+            event.preventDefault();
+            const username = document.getElementById('reg-username').value.trim();
+            const email = document.getElementById('reg-email').value.trim();
+            const password = document.getElementById('reg-password').value.trim();
+            const role = document.getElementById('reg-role').value;
+            const college = document.getElementById('reg-college').value.trim();
+
+            const state = getAppState();
+
+            if (state.users.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+                showFlash('Username already exists. Please choose another.');
+                return;
+            }
+            if (state.users.some(u => u.email && u.email.toLowerCase() === email.toLowerCase())) {
+                showFlash('Email address is already registered. Please log in.');
+                return;
+            }
+
+            const newUser = {
+                username,
+                email,
+                password,
+                role,
+                college: role === 'student' ? college : ''
+            };
+
+            state.users.push(newUser);
+            state.currentUser = newUser;
+            saveAppState(state);
+
+            showFlash('Registration successful! Welcome to Innovation Hub.');
+            if (role === 'student') {
+                navigateTo('student');
+            } else {
+                navigateTo('company');
+            }
+        }
+
+        function handleLogout() {
+            const state = getAppState();
+            state.currentUser = null;
+            saveAppState(state);
+            showFlash('You have been logged out.');
+            navigateTo('home');
+        }
+
+        function toggleCollegeField() {
+            const role = document.getElementById('reg-role').value;
+            const group = document.getElementById('college-group');
+            if (group) {
+                group.style.display = role === 'company' ? 'none' : 'flex';
+            }
+        }
+
+        // Student Dashboard Tabs & Logic
+        function switchStudentTab(tabName) {
+            const tabMy = document.getElementById('student-tab-my');
+            const tabGlobal = document.getElementById('student-tab-global');
+            const btnMy = document.getElementById('tab-btn-my');
+            const btnGlobal = document.getElementById('tab-btn-global');
+
+            if (tabName === 'my-dashboard') {
+                tabMy.style.display = 'block';
+                tabGlobal.style.display = 'none';
+                btnMy.classList.add('active');
+                btnGlobal.classList.remove('active');
+            } else {
+                tabMy.style.display = 'none';
+                tabGlobal.style.display = 'block';
+                btnMy.classList.remove('active');
+                btnGlobal.classList.add('active');
+            }
+        }
+
+        function renderStudentDashboard() {
+            const state = getAppState();
+            if (!state.currentUser || state.currentUser.role !== 'student') {
+                navigateTo('login');
+                return;
+            }
+
+            document.getElementById('student-welcome-name').innerText = state.currentUser.username;
+            document.getElementById('student-welcome-email').innerHTML = `<i class="fas fa-envelope"></i> ${escapeHtml(state.currentUser.email || 'No email')}`;
+            document.getElementById('student-welcome-college').innerHTML = `<i class="fas fa-university"></i> ${escapeHtml(state.currentUser.college || 'General Innovator')}`;
+
+            // Render My Projects
+            const myProjectsContainer = document.getElementById('my-projects-container');
+            const myProjects = state.projects.filter(p => p.studentName.toLowerCase() === state.currentUser.username.toLowerCase());
+
+            if (myProjects.length === 0) {
+                myProjectsContainer.innerHTML = `
+                    <div class="glass-card" style="text-align: center; color: var(--text-muted); padding: 3rem; grid-column: 1 / -1;">
+                        <i class="fas fa-folder-open" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>You haven't uploaded any projects yet. Fill the form above to showcase your idea!</p>
+                    </div>
+                `;
+            } else {
+                myProjectsContainer.innerHTML = myProjects.map(proj => `
+                    <div class="glass-card project-card">
+                        ${proj.image ? `<img src="${escapeHtml(proj.image)}" class="project-img" alt="${escapeHtml(proj.title)}">` : `<div class="no-image"><i class="fas fa-image" style="font-size: 2rem; color: var(--text-muted);"></i></div>`}
+                        <div class="project-info">
+                            <h3>${escapeHtml(proj.title)}</h3>
+                            <p>${escapeHtml(proj.description)}</p>
+                            <div style="margin-top: 1rem; display: flex; justify-content: space-between; align-items: center;">
+                                ${proj.project_url ? `<a href="${escapeHtml(proj.project_url)}" target="_blank" style="color: var(--primary-color); font-size: 0.9rem; text-decoration: none; font-weight: 600;"><i class="fas fa-external-link-alt"></i> View Link</a>` : `<span></span>`}
+                                <button onclick="handleDeleteProject(${proj.id})" style="background: none; border: none; color: #ef4444; cursor: pointer; font-size: 0.9rem; font-weight: 600; font-family: inherit;">
+                                    <i class="fas fa-trash-alt"></i> Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            // Render Global Projects
+            const globalContainer = document.getElementById('global-projects-container');
+            globalContainer.innerHTML = state.projects.map(proj => `
+                <div class="glass-card project-card">
+                    ${proj.image ? `<img src="${escapeHtml(proj.image)}" class="project-img" alt="${escapeHtml(proj.title)}">` : `<div class="no-image"><i class="fas fa-image" style="font-size: 2rem; color: var(--text-muted);"></i></div>`}
+                    <div class="project-info">
+                        <h3>${escapeHtml(proj.title)}</h3>
+                        <p>${escapeHtml(proj.description)}</p>
+                        <div style="margin-top: 1rem; display: flex; flex-direction: column; gap: 0.5rem;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; color: var(--text-muted);">
+                                <span><i class="fas fa-user-graduate"></i> ${escapeHtml(proj.studentName)}</span>
+                                <span><i class="fas fa-university"></i> ${escapeHtml(proj.college)}</span>
+                            </div>
+                            ${proj.email ? `<div style="font-size: 0.85rem;"><a href="mailto:${escapeHtml(proj.email)}" class="email-link"><i class="fas fa-envelope"></i> ${escapeHtml(proj.email)}</a></div>` : ''}
+                            ${proj.project_url ? `<a href="${escapeHtml(proj.project_url)}" target="_blank" class="btn signup-btn" style="padding: 0.4rem 0.8rem; font-size: 0.85rem; text-decoration: none; text-align: center; margin-top: 0.5rem;">Open Project Demo <i class="fas fa-external-link-alt"></i></a>` : ''}
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function handleUploadProject(event) {
+            event.preventDefault();
+            const state = getAppState();
+            if (!state.currentUser) return;
+
+            const title = document.getElementById('proj-title').value.trim();
+            const description = document.getElementById('proj-desc').value.trim();
+            const phone = document.getElementById('proj-phone').value.trim();
+            const project_url = document.getElementById('proj-url').value.trim();
+            const fileInput = document.getElementById('proj-img');
+
+            function saveAndRefresh(imageUrl) {
+                const newProject = {
+                    id: Date.now(),
+                    title,
+                    description,
+                    phone,
+                    project_url,
+                    image: imageUrl || '',
+                    studentName: state.currentUser.username,
+                    email: state.currentUser.email || 'student@college.edu',
+                    college: state.currentUser.college || 'Institution'
+                };
+
+                state.projects.unshift(newProject);
+                saveAppState(state);
+                showFlash('Project published successfully!');
+                event.target.reset();
+                renderStudentDashboard();
+            }
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    saveAndRefresh(e.target.result);
+                };
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                saveAndRefresh('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80');
+            }
+        }
+
+        function handleDeleteProject(projectId) {
+            if (!confirm('Are you sure you want to delete this project?')) return;
+            const state = getAppState();
+            state.projects = state.projects.filter(p => p.id !== projectId);
+            saveAppState(state);
+            showFlash('Project deleted.');
+            renderStudentDashboard();
+        }
+
+        // Company Dashboard Feed & Detail View
+        function renderCompanyDashboard() {
+            const state = getAppState();
+            if (!state.currentUser || state.currentUser.role !== 'company') {
+                navigateTo('login');
+                return;
+            }
+
+            document.getElementById('company-welcome-name').innerText = state.currentUser.username;
+            filterAndRenderCompanyFeed('');
+        }
+
+        function handleCompanySearch(event) {
+            const term = event.target.value.toLowerCase().trim();
+            filterAndRenderCompanyFeed(term);
+        }
+
+        function filterAndRenderCompanyFeed(searchTerm) {
+            const state = getAppState();
+            const container = document.getElementById('company-feed-container');
+
+            const filtered = state.projects.filter(p => {
+                if (!searchTerm) return true;
+                return p.title.toLowerCase().includes(searchTerm) ||
+                       p.description.toLowerCase().includes(searchTerm) ||
+                       (p.college && p.college.toLowerCase().includes(searchTerm)) ||
+                       (p.studentName && p.studentName.toLowerCase().includes(searchTerm)) ||
+                       (p.email && p.email.toLowerCase().includes(searchTerm));
+            });
+
+            if (filtered.length === 0) {
+                container.innerHTML = `<p style="color: var(--text-muted); text-align: center; padding: 2rem;">No matching student projects found.</p>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(proj => `
+                <div class="glass-card project-card clickable project-link ${proj.id === selectedProjectId ? 'active-card' : ''}" 
+                     onclick="selectCompanyProject(${proj.id})" style="padding: 1.2rem;">
+                    <div style="display: flex; gap: 1.5rem; align-items: center;">
+                        ${proj.image ? `<img src="${escapeHtml(proj.image)}" style="width: 85px; height: 85px; object-fit: cover; border-radius: 12px; flex-shrink: 0;" alt="${escapeHtml(proj.title)}">` : `<div style="width: 85px; height: 85px; background: rgba(255, 255, 255, 0.05); display: flex; align-items: center; justify-content: center; border-radius: 12px; font-size: 0.75rem; color: var(--text-muted); flex-shrink: 0;"><i class="fas fa-image"></i></div>`}
+                        <div style="flex: 1; min-width: 0;">
+                            <h4 style="font-size: 1.1rem; color: var(--text-light); margin-bottom: 0.3rem;">${escapeHtml(proj.title)}</h4>
+                            <p style="color: var(--text-muted); font-size: 0.85rem; display: -webkit-box; display: box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; box-orient: vertical; overflow: hidden; margin-bottom: 0.5rem;">
+                                ${escapeHtml(proj.description)}
+                            </p>
+                            <div style="display: flex; gap: 1rem; font-size: 0.8rem; color: var(--primary-color);">
+                                <span><i class="fas fa-user-graduate"></i> ${escapeHtml(proj.studentName)}</span>
+                                <span><i class="fas fa-university"></i> ${escapeHtml(proj.college)}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            if (!selectedProjectId && filtered.length > 0) {
+                selectCompanyProject(filtered[0].id);
+            }
+        }
+
+        function selectCompanyProject(projectId) {
+            selectedProjectId = projectId;
+            const state = getAppState();
+            const project = state.projects.find(p => p.id === projectId);
+            if (!project) return;
+
+            // Highlight in list
+            document.querySelectorAll('.project-link').forEach(card => card.classList.remove('active-card'));
+            const activeCard = document.querySelector(`[onclick="selectCompanyProject(${projectId})"]`);
+            if (activeCard) activeCard.classList.add('active-card');
+
+            const placeholder = document.getElementById('company-detail-placeholder');
+            const content = document.getElementById('company-detail-content');
+
+            if (placeholder) placeholder.style.display = 'none';
+            if (content) {
+                content.style.display = 'block';
+                content.classList.add('fade-in');
+            }
+
+            document.getElementById('detail-title').innerText = project.title;
+            document.getElementById('detail-desc').innerText = project.description;
+            document.getElementById('detail-student-name').innerText = project.studentName;
+            document.getElementById('detail-student-email').innerText = project.email || 'Not provided';
+            document.getElementById('detail-student-college').innerText = project.college || 'N/A';
+            document.getElementById('detail-student-phone').innerText = project.phone || 'N/A';
+
+            // Pre-filled email outreach
+            const companyName = state.currentUser ? state.currentUser.username : 'Company Partner';
+            const emailSubject = encodeURIComponent("Innovation Hub: Inquiry regarding your project '" + project.title + "'");
+            const emailBody = encodeURIComponent(
+                "Hello " + project.studentName + ",\n\n" +
+                "I reviewed your project \"" + project.title + "\" on Innovation Hub and was very impressed with your innovation.\n" +
+                "Our team would love to connect with you regarding potential opportunities, mentorship, or collaboration.\n\n" +
+                "Looking forward to hearing from you!\n\n" +
+                "Best regards,\n" +
+                companyName
+            );
+
+            const emailBtn = document.getElementById('email-btn');
+            if (emailBtn) {
+                if (project.email && project.email !== 'Not provided') {
+                    emailBtn.href = `mailto:${project.email}?subject=${emailSubject}&body=${emailBody}`;
+                    emailBtn.style.display = 'inline-flex';
+                } else {
+                    emailBtn.style.display = 'none';
+                }
+            }
+
+            const connectBtn = document.getElementById('connect-btn');
+            if (connectBtn) {
+                if (project.phone && project.phone !== 'N/A') {
+                    connectBtn.href = `tel:${project.phone}`;
+                    connectBtn.style.display = 'inline-flex';
+                } else {
+                    connectBtn.style.display = 'none';
+                }
+            }
+
+            // Project URL link
+            const linkContainer = document.getElementById('detail-link-container');
+            const linkElem = document.getElementById('detail-project-url');
+            if (project.project_url) {
+                linkElem.href = project.project_url;
+                linkContainer.style.display = 'block';
+            } else {
+                linkContainer.style.display = 'none';
+            }
+
+            // Project Image
+            const img = document.getElementById('detail-img');
+            if (project.image) {
+                img.src = project.image;
+                img.style.display = 'block';
+            } else {
+                img.style.display = 'none';
+            }
+
+            setTimeout(() => {
+                if (content) content.classList.remove('fade-in');
+            }, 500);
+        }
+
+        // Utility: HTML Escaping
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderNavbar();
+            renderHeroButtons();
+            navigateTo('home');
+        });
+    </script>
+</body>
+</html>
